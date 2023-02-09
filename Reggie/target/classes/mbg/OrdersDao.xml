@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Luxifel.reggie.mbg.dao.OrdersDao">
+  <resultMap id="BaseResultMap" type="com.Luxifel.reggie.mbg.model.Orders">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="address_book_id" jdbcType="BIGINT" property="addressBookId" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="checkout_time" jdbcType="TIMESTAMP" property="checkoutTime" />
+    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `number`, `status`, user_id, address_book_id, order_time, checkout_time, pay_method, 
+    amount, remark, phone, address, user_name, consignee
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from orders
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.Luxifel.reggie.mbg.model.Orders" useGeneratedKeys="true">
+    insert into orders (`number`, `status`, user_id, 
+      address_book_id, order_time, checkout_time, 
+      pay_method, amount, remark, 
+      phone, address, user_name, 
+      consignee)
+    values (#{number,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
+      #{addressBookId,jdbcType=BIGINT}, #{orderTime,jdbcType=TIMESTAMP}, #{checkoutTime,jdbcType=TIMESTAMP}, 
+      #{payMethod,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{consignee,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.Luxifel.reggie.mbg.model.Orders" useGeneratedKeys="true">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addressBookId != null">
+        address_book_id,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressBookId != null">
+        #{addressBookId,jdbcType=BIGINT},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkoutTime != null">
+        #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Luxifel.reggie.mbg.model.Orders">
+    update orders
+    <set>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressBookId != null">
+        address_book_id = #{addressBookId,jdbcType=BIGINT},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Luxifel.reggie.mbg.model.Orders">
+    update orders
+    set `number` = #{number,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      address_book_id = #{addressBookId,jdbcType=BIGINT},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      pay_method = #{payMethod,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
