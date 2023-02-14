@@ -39,4 +39,4 @@ mybatis-plus:
 
 
 reggie:
-  path: /usr/local/AppRiggie/Img/
+  path: /usr/local/restaurantOrder/Img/
