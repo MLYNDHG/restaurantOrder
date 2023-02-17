@@ -1,4 +1,4 @@
 spring:
   profiles:
-#    active: dev
-    active: prod #打包只修改此处
+    active: dev
+#    active: prod #打包只修改此处

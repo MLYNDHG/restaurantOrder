@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryListResult<T> {
+public class QueryListResult<T> implements Serializable {
     @ApiModelProperty(value = "页数")
     private int totalPages;
     @ApiModelProperty(value = "总数")

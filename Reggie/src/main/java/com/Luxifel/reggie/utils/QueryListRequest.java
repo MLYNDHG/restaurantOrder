@@ -2,6 +2,8 @@ package com.Luxifel.reggie.utils;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 public class QueryListRequest<T>{
     private PageCondition pageCondition;
@@ -22,5 +24,6 @@ public class QueryListRequest<T>{
     public void setPageCondition(PageCondition pageCondition) {
         this.pageCondition = pageCondition;
     }
+
 
 }

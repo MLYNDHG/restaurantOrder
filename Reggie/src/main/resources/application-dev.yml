@@ -13,13 +13,23 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid: #连接池
       driver-class-name: com.mysql.cj.jdbc.Driver #驱动
-#      driver-class-name: com.mysql.jdbc.Driver #驱动
       url: jdbc:mysql://localhost:3306/reggie?setUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false #数据库
       username: root #账号
       password: root #密码
-#  cache:
-#    redis:
-#      time-to-live: 1800000 #设置redis缓存时间
+  redis:
+    host: 192.168.221.128
+    port: 6379
+    database: 0
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 4
+        max-wait: 1ms
+        min-idle: 0
+  cache:
+    redis:
+      time-to-live: 1800000 #设置redis缓存时间
 #  redis:
 #    host: 192.168.10.143
 #    port: 6379

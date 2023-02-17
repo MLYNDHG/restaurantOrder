@@ -8,6 +8,9 @@ import com.Luxifel.reggie.utils.QueryListResult;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,9 @@ import java.util.Date;
 public class EmployeeContoller {
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     @PostMapping("/login")
     public Employee login (HttpServletRequest httpServletRequest, @RequestBody Employee employee){
@@ -59,11 +65,13 @@ public class EmployeeContoller {
     }
 
     @PostMapping("/page")
+    @Cacheable(value = "employeeListCache",key = "#queryListRequest.paramsCondition.id")
     public QueryListResult<Employee> employeeList(@RequestBody QueryListRequest<Employee> queryListRequest){
         return employeeService.EmployeeList(queryListRequest);
     }
 
     @GetMapping("/{id}")
+    @Cacheable(value = "EmployeeCache",key = "#id")
     public Employee getEmployeeById(@PathVariable(value = "id")  Long id){
         return employeeService.selectByPrimaryKey(id);
     }
@@ -94,6 +102,7 @@ public class EmployeeContoller {
 
     @ApiOperation("使用PageHelper分页")
     @PostMapping("/employeeListAllByPageHelper")
+//    @Cacheable(value = "EmployeeCache",key = "#queryListRequest.paramsCondition.id")
     public QueryListResult<Employee> employeeListAll(@RequestBody QueryListRequest<Employee> queryListRequest) {//
         return employeeService.EmployeeList(queryListRequest);
     }
