@@ -9,17 +9,22 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeContoller {
+    @Autowired
+    private DataSource dataSource;
+
     @Autowired
     private EmployeeService employeeService;
 
@@ -65,7 +70,7 @@ public class EmployeeContoller {
     }
 
     @PostMapping("/page")
-    @Cacheable(value = "employeeListCache",key = "#queryListRequest.paramsCondition.id")
+    @Cacheable(value = "employeeListCache",key = "'list'")
     public QueryListResult<Employee> employeeList(@RequestBody QueryListRequest<Employee> queryListRequest){
         return employeeService.EmployeeList(queryListRequest);
     }
@@ -77,6 +82,7 @@ public class EmployeeContoller {
     }
 
     @PostMapping("")
+    @CacheEvict(value = "employeeListCache",key = "'list'")
     public int insertIntoEmpoyee(HttpServletRequest request,@RequestBody Employee employee){
         String password = DigestUtils.md5DigestAsHex("123456".getBytes());
         employee.setPassword(password);
